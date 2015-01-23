@@ -1,0 +1,4 @@
+install -d -m 755 %{buildroot}%{_sbindir}
+install -m 755 rabbitmq-script-wrapper %{buildroot}%{_sbindir}/rabbitmqctl
+install -m 755 rabbitmq-script-wrapper %{buildroot}%{_sbindir}/rabbitmq-server
+install -m 755 rabbitmq-script-wrapper %{buildroot}%{_sbindir}/rabbitmq-plugins

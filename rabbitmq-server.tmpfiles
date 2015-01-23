@@ -1,0 +1,2 @@
+d /var/lib/rabbitmq 0755 rabbitmq rabbitmq - -
+d /var/log/rabbitmq 0755 rabbitmq rabbitmq - -

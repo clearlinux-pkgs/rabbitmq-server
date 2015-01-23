@@ -1,0 +1,18 @@
+[Unit]
+Description=RabbitMQ broker
+After=syslog.target network.target
+Requires=epmd.socket
+
+[Service]
+Type=simple
+User=rabbitmq
+Group=rabbitmq
+Environment=RABBITMQ_PID_FILE=/var/lib/rabbitmq/pid
+WorkingDirectory=/var/lib/rabbitmq
+ExecStart=/usr/sbin/rabbitmq-server
+ExecStartPost=/usr/sbin/rabbitmqctl wait /var/lib/rabbitmq/pid
+ExecStop=/usr/sbin/rabbitmqctl stop
+ExecStopPost=/usr/bin/rm /var/lib/rabbitmq/pid
+
+[Install]
+WantedBy=multi-user.target

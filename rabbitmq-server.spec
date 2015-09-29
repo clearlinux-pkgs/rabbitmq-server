@@ -4,7 +4,7 @@
 #
 Name     : rabbitmq-server
 Version  : 3.5.5
-Release  : 37
+Release  : 38
 URL      : https://www.rabbitmq.com/releases/rabbitmq-server/v3.5.5/rabbitmq-server-3.5.5.tar.gz
 Source0  : https://www.rabbitmq.com/releases/rabbitmq-server/v3.5.5/rabbitmq-server-3.5.5.tar.gz
 Source1  : rabbitmq-server.service

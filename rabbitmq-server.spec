@@ -4,7 +4,7 @@
 #
 Name     : rabbitmq-server
 Version  : 3.5.6
-Release  : 41
+Release  : 42
 URL      : https://www.rabbitmq.com/releases/rabbitmq-server/v3.5.6/rabbitmq-server-3.5.6.tar.gz
 Source0  : https://www.rabbitmq.com/releases/rabbitmq-server/v3.5.6/rabbitmq-server-3.5.6.tar.gz
 Source1  : rabbitmq-server.service

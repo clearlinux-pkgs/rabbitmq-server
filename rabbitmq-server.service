@@ -1,7 +1,6 @@
 [Unit]
 Description=RabbitMQ broker
 After=syslog.target network.target
-Requires=epmd.socket
 
 [Service]
 Type=simple

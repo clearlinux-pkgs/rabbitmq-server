@@ -1,0 +1,93 @@
+From 2d7c693ff59e62c951667595e10bad150aa6bf42 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Thu, 11 Oct 2018 14:52:59 -0700
+Subject: [PATCH] Add Makefile and correct defaults
+
+---
+ Makefile               | 23 +++++++++++++++++++++++
+ sbin/rabbitmq-defaults | 16 ++++++++--------
+ sbin/rabbitmq-env      |  4 ++--
+ 3 files changed, 33 insertions(+), 10 deletions(-)
+ create mode 100644 Makefile
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..95d0d41
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,23 @@
++all:
++
++install:
++	install -m 0755 -d $(DESTDIR)/usr/bin
++	install -m 0755 -d $(DESTDIR)/usr/lib/rabbitmq-server
++	install -m 0755 -d $(DESTDIR)/usr/share/man
++	install -m 0755 -d $(DESTDIR)/usr/share/doc/rabbitmq-server
++	cp -r ebin $(DESTDIR)/usr/lib/rabbitmq-server/
++	cp -r escript $(DESTDIR)/usr/lib/rabbitmq-server/
++	cp -r plugins $(DESTDIR)/usr/lib/rabbitmq-server/
++	cp -r priv $(DESTDIR)/usr/lib/rabbitmq-server/
++	cp -r sbin $(DESTDIR)/usr/lib/rabbitmq-server/
++	cp -r include $(DESTDIR)/usr/lib/rabbitmq-server/
++	install -m 0644 LICENSE* $(DESTDIR)/usr/share/doc/rabbitmq-server/
++	cp -r share/man/man5 $(DESTDIR)/usr/share/man/
++	cp -r share/man/man8 $(DESTDIR)/usr/share/man/
++	ln -s /usr/lib/rabbitmq-server/sbin/cuttlefish $(DESTDIR)/usr/bin/cuttlefish
++	ln -s /usr/lib/rabbitmq-server/sbin/rabbitmqctl $(DESTDIR)/usr/bin/rabbitmqctl
++	ln -s /usr/lib/rabbitmq-server/sbin/rabbitmq-defaults $(DESTDIR)/usr/bin/rabbitmq-defaults
++	ln -s /usr/lib/rabbitmq-server/sbin/rabbitmq-diagnostics $(DESTDIR)/usr/bin/rabbitmq-diagnostics
++	ln -s /usr/lib/rabbitmq-server/sbin/rabbitmq-env $(DESTDIR)/usr/bin/rabbitmq-env
++	ln -s /usr/lib/rabbitmq-server/sbin/rabbitmq-plugins $(DESTDIR)/usr/bin/rabbitmq-plugins
++	ln -s /usr/lib/rabbitmq-server/sbin/rabbitmq-server $(DESTDIR)/usr/bin/rabbitmq-server
+diff --git a/sbin/rabbitmq-defaults b/sbin/rabbitmq-defaults
+index 7d35417..fc0b517 100755
+--- a/sbin/rabbitmq-defaults
++++ b/sbin/rabbitmq-defaults
+@@ -34,13 +34,13 @@ fi
+ 
+ BOOT_MODULE="rabbit"
+ 
+-CONFIG_FILE=${SYS_PREFIX}/etc/rabbitmq/rabbitmq
+-LOG_BASE=${SYS_PREFIX}/var/log/rabbitmq
+-MNESIA_BASE=${SYS_PREFIX}/var/lib/rabbitmq/mnesia
+-ENABLED_PLUGINS_FILE=${SYS_PREFIX}/etc/rabbitmq/enabled_plugins
+-GENERATED_CONFIG_DIR=${SYS_PREFIX}/var/lib/rabbitmq/config
+-ADVANCED_CONFIG_FILE=${SYS_PREFIX}/etc/rabbitmq/advanced.config
+-SCHEMA_DIR=${SYS_PREFIX}/var/lib/rabbitmq/schema
++CONFIG_FILE=/etc/rabbitmq/rabbitmq
++LOG_BASE=/var/log/rabbitmq
++MNESIA_BASE=/var/lib/rabbitmq/mnesia
++ENABLED_PLUGINS_FILE=/etc/rabbitmq/enabled_plugins
++GENERATED_CONFIG_DIR=/var/lib/rabbitmq/config
++ADVANCED_CONFIG_FILE=/etc/rabbitmq/advanced.config
++SCHEMA_DIR=/var/lib/rabbitmq/schema
+ 
+ PLUGINS_DIR="${RABBITMQ_HOME}/plugins"
+ 
+@@ -55,4 +55,4 @@ case "$RABBITMQ_HOME" in
+         ;;
+ esac
+ 
+-CONF_ENV_FILE=${SYS_PREFIX}/etc/rabbitmq/rabbitmq-env.conf
++CONF_ENV_FILE=/etc/rabbitmq/rabbitmq-env.conf
+diff --git a/sbin/rabbitmq-env b/sbin/rabbitmq-env
+index 37c2a4e..55dd66b 100755
+--- a/sbin/rabbitmq-env
++++ b/sbin/rabbitmq-env
+@@ -142,11 +142,11 @@ SERVER_ERL_ARGS=" +P $RABBITMQ_MAX_NUMBER_OF_PROCESSES +t $RABBITMQ_MAX_NUMBER_O
+ [ "x" = "x$RABBITMQ_USE_LONGNAME" ] && RABBITMQ_USE_LONGNAME=${USE_LONGNAME}
+ if [ "xtrue" = "x$RABBITMQ_USE_LONGNAME" ] ; then
+     RABBITMQ_NAME_TYPE=-name
+-    [ "x" = "x$HOSTNAME" ] && HOSTNAME=`env hostname -f`
++    [ "x" = "x$HOSTNAME" ] && HOSTNAME=`env hostnamectl --transient`
+     [ "x" = "x$NODENAME" ] && NODENAME=rabbit@${HOSTNAME}
+ else
+     RABBITMQ_NAME_TYPE=-sname
+-    [ "x" = "x$HOSTNAME" ] && HOSTNAME=`env hostname`
++    [ "x" = "x$HOSTNAME" ] && HOSTNAME=`env hostnamectl --static`
+     [ "x" = "x$NODENAME" ] && NODENAME=rabbit@${HOSTNAME%%.*}
+ fi
+ 
+-- 
+2.19.1
+

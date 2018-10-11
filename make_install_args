@@ -1,1 +1,0 @@
-TARGET_DIR=%{buildroot}/usr/lib/rabbitmq/lib/rabbitmq-server SBIN_DIR=%{buildroot}/usr/lib/rabbitmq/bin MAN_DIR=%{buildroot}%{_mandir} DOC_INSTALL_DIR=%{buildroot}%{_defaultdocdir}

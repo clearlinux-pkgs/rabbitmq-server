@@ -1,4 +1,1 @@
-remove-docs.patch
-0001-remove-netcat-buildreq.patch
-0001-Add-bin-wrapper.patch
-0001-Initial-hostname-fix.patch
+0001-Add-Makefile-and-correct-defaults.patch

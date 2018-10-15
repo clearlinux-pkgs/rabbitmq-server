@@ -4,7 +4,7 @@
 #
 Name     : rabbitmq-server
 Version  : 3.7.8
-Release  : 43
+Release  : 44
 URL      : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.8/rabbitmq-server-generic-unix-3.7.8.tar.xz
 Source0  : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.8/rabbitmq-server-generic-unix-3.7.8.tar.xz
 Source1  : rabbitmq-server.service
@@ -75,11 +75,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1539295521
+export SOURCE_DATE_EPOCH=1539623703
 make
 
 %install
-export SOURCE_DATE_EPOCH=1539295521
+export SOURCE_DATE_EPOCH=1539623703
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rabbitmq-server
 cp LICENSE-APACHE2 %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-APACHE2
@@ -314,7 +314,7 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
 
 %files bin
 %defattr(-,root,root,-)
-/usr/bin/cuttlefish
+%exclude /usr/bin/cuttlefish
 /usr/bin/rabbitmq-defaults
 /usr/bin/rabbitmq-diagnostics
 /usr/bin/rabbitmq-env

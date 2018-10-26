@@ -6,7 +6,7 @@
 #
 Name     : rabbitmq-server
 Version  : 3.7.8
-Release  : 45
+Release  : 46
 URL      : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.8/rabbitmq-server-generic-unix-3.7.8.tar.xz
 Source0  : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.8/rabbitmq-server-generic-unix-3.7.8.tar.xz
 Source1  : rabbitmq-server.service
@@ -78,11 +78,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1540253705
+export SOURCE_DATE_EPOCH=1540581946
 make
 
 %install
-export SOURCE_DATE_EPOCH=1540253705
+export SOURCE_DATE_EPOCH=1540581946
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rabbitmq-server
 cp LICENSE %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE
@@ -104,6 +104,8 @@ cp LICENSE-MIT-jQuery164 %{buildroot}/usr/share/package-licenses/rabbitmq-server
 cp LICENSE-MPL-RabbitMQ %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MPL-RabbitMQ
 cp LICENSE-MPL2 %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MPL2
 cp LICENSE-erlcloud %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-erlcloud
+cp LICENSE-httpc_aws %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-httpc_aws
+cp LICENSE-rabbitmq_aws %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-rabbitmq_aws
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/rabbitmq-server.service
@@ -353,6 +355,8 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
 /usr/share/package-licenses/rabbitmq-server/LICENSE-MPL-RabbitMQ
 /usr/share/package-licenses/rabbitmq-server/LICENSE-MPL2
 /usr/share/package-licenses/rabbitmq-server/LICENSE-erlcloud
+/usr/share/package-licenses/rabbitmq-server/LICENSE-httpc_aws
+/usr/share/package-licenses/rabbitmq-server/LICENSE-rabbitmq_aws
 
 %files man
 %defattr(0644,root,root,0755)

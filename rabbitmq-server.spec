@@ -6,7 +6,7 @@
 #
 Name     : rabbitmq-server
 Version  : 3.7.15
-Release  : 50
+Release  : 51
 URL      : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.15/rabbitmq-server-generic-unix-3.7.15.tar.xz
 Source0  : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.15/rabbitmq-server-generic-unix-3.7.15.tar.xz
 Source1  : rabbitmq-server.service
@@ -88,7 +88,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1559206973
+export SOURCE_DATE_EPOCH=1559793557
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -98,7 +98,7 @@ make
 
 
 %install
-export SOURCE_DATE_EPOCH=1559206973
+export SOURCE_DATE_EPOCH=1559793557
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rabbitmq-server
 cp LICENSE %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE
@@ -336,7 +336,7 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
 
 %files bin
 %defattr(-,root,root,-)
-%exclude /usr/bin/cuttlefish
+/usr/bin/cuttlefish
 /usr/bin/rabbitmq-defaults
 /usr/bin/rabbitmq-diagnostics
 /usr/bin/rabbitmq-env

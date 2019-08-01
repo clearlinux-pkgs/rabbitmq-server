@@ -5,13 +5,13 @@
 # Source0 file verified with key 0x6B73A36E6026DFCA (info@rabbitmq.com)
 #
 Name     : rabbitmq-server
-Version  : 3.7.16
-Release  : 54
-URL      : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.16/rabbitmq-server-generic-unix-latest-toolchain-3.7.16.tar.xz
-Source0  : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.16/rabbitmq-server-generic-unix-latest-toolchain-3.7.16.tar.xz
+Version  : 3.7.17
+Release  : 55
+URL      : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.17/rabbitmq-server-generic-unix-latest-toolchain-3.7.17.tar.xz
+Source0  : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.17/rabbitmq-server-generic-unix-latest-toolchain-3.7.17.tar.xz
 Source1  : rabbitmq-server.service
 Source2  : rabbitmq-server.tmpfiles
-Source99 : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.16/rabbitmq-server-generic-unix-latest-toolchain-3.7.16.tar.xz.asc
+Source99 : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.17/rabbitmq-server-generic-unix-latest-toolchain-3.7.17.tar.xz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause HPND MIT MPL-1.1 MPL-2.0-no-copyleft-exception
@@ -80,7 +80,7 @@ services components for the rabbitmq-server package.
 
 
 %prep
-%setup -q -n rabbitmq_server-3.7.16
+%setup -q -n rabbitmq_server-3.7.17
 %patch1 -p1
 
 %build
@@ -88,7 +88,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1564467823
+export SOURCE_DATE_EPOCH=1564637624
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -98,7 +98,7 @@ make
 
 
 %install
-export SOURCE_DATE_EPOCH=1564467823
+export SOURCE_DATE_EPOCH=1564637624
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rabbitmq-server
 cp LICENSE %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE
@@ -131,6 +131,7 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
 
 %files
 %defattr(-,root,root,-)
+/usr/lib/rabbitmq-server/ebin/amqqueue.beam
 /usr/lib/rabbitmq-server/ebin/background_gc.beam
 /usr/lib/rabbitmq-server/ebin/code_server_cache.beam
 /usr/lib/rabbitmq-server/ebin/dtree.beam
@@ -186,6 +187,9 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
 /usr/lib/rabbitmq-server/ebin/rabbit_exchange_type_headers.beam
 /usr/lib/rabbitmq-server/ebin/rabbit_exchange_type_invalid.beam
 /usr/lib/rabbitmq-server/ebin/rabbit_exchange_type_topic.beam
+/usr/lib/rabbitmq-server/ebin/rabbit_feature_flags.beam
+/usr/lib/rabbitmq-server/ebin/rabbit_ff_extra.beam
+/usr/lib/rabbitmq-server/ebin/rabbit_ff_registry.beam
 /usr/lib/rabbitmq-server/ebin/rabbit_fhc_helpers.beam
 /usr/lib/rabbitmq-server/ebin/rabbit_file.beam
 /usr/lib/rabbitmq-server/ebin/rabbit_framing.beam
@@ -269,6 +273,8 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
 /usr/lib/rabbitmq-server/escript/rabbitmq-diagnostics
 /usr/lib/rabbitmq-server/escript/rabbitmq-plugins
 /usr/lib/rabbitmq-server/escript/rabbitmqctl
+/usr/lib/rabbitmq-server/include/amqqueue.hrl
+/usr/lib/rabbitmq-server/include/amqqueue_v1.hrl
 /usr/lib/rabbitmq-server/include/gm_specs.hrl
 /usr/lib/rabbitmq-server/include/rabbit.hrl
 /usr/lib/rabbitmq-server/include/rabbit_core_metrics.hrl
@@ -278,51 +284,52 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
 /usr/lib/rabbitmq-server/include/rabbit_misc.hrl
 /usr/lib/rabbitmq-server/include/rabbit_msg_store.hrl
 /usr/lib/rabbitmq-server/plugins/README
-/usr/lib/rabbitmq-server/plugins/amqp10_client-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/amqp10_common-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/amqp_client-3.7.16.ez
+/usr/lib/rabbitmq-server/plugins/amqp10_client-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/amqp10_common-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/amqp_client-3.7.17.ez
 /usr/lib/rabbitmq-server/plugins/cowboy-2.6.1.ez
 /usr/lib/rabbitmq-server/plugins/cowlib-2.7.0.ez
 /usr/lib/rabbitmq-server/plugins/goldrush-0.1.9.ez
 /usr/lib/rabbitmq-server/plugins/jsx-2.9.0.ez
 /usr/lib/rabbitmq-server/plugins/lager-3.6.10.ez
 /usr/lib/rabbitmq-server/plugins/observer_cli-1.5.0.ez
-/usr/lib/rabbitmq-server/plugins/rabbit_common-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_amqp1_0-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_auth_backend_cache-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_auth_backend_http-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_auth_backend_ldap-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_auth_mechanism_ssl-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_aws-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_consistent_hash_exchange-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_event_exchange-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_federation-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_federation_management-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_jms_topic_exchange-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_management-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_management_agent-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_mqtt-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_aws-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_common-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_consul-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_etcd-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_k8s-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_random_exchange-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_recent_history_exchange-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_sharding-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_shovel-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_shovel_management-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_stomp-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_top-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_tracing-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_trust_store-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_web_dispatch-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_web_mqtt-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_web_mqtt_examples-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_web_stomp-3.7.16.ez
-/usr/lib/rabbitmq-server/plugins/rabbitmq_web_stomp_examples-3.7.16.ez
+/usr/lib/rabbitmq-server/plugins/rabbit_common-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_amqp1_0-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_auth_backend_cache-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_auth_backend_http-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_auth_backend_ldap-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_auth_mechanism_ssl-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_aws-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_consistent_hash_exchange-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_event_exchange-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_federation-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_federation_management-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_jms_topic_exchange-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_management-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_management_agent-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_mqtt-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_aws-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_common-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_consul-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_etcd-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_peer_discovery_k8s-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_random_exchange-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_recent_history_exchange-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_sharding-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_shovel-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_shovel_management-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_stomp-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_top-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_tracing-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_trust_store-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_web_dispatch-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_web_mqtt-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_web_mqtt_examples-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_web_stomp-3.7.17.ez
+/usr/lib/rabbitmq-server/plugins/rabbitmq_web_stomp_examples-3.7.17.ez
 /usr/lib/rabbitmq-server/plugins/ranch-1.7.1.ez
 /usr/lib/rabbitmq-server/plugins/recon-2.5.0.ez
+/usr/lib/rabbitmq-server/plugins/stdout_formatter-0.2.2.ez
 /usr/lib/rabbitmq-server/plugins/syslog-3.4.5.ez
 /usr/lib/rabbitmq-server/plugins/sysmon_handler-1.1.0.ez
 /usr/lib/rabbitmq-server/priv/schema/rabbit.schema

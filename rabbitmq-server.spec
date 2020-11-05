@@ -6,15 +6,15 @@
 #
 Name     : rabbitmq-server
 Version  : 3.8.3.beta.2
-Release  : 59
+Release  : 60
 URL      : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3-beta.2/rabbitmq-server-generic-unix-latest-toolchain-3.8.3-beta.2.tar.xz
 Source0  : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3-beta.2/rabbitmq-server-generic-unix-latest-toolchain-3.8.3-beta.2.tar.xz
 Source1  : rabbitmq-server.service
 Source2  : rabbitmq-server.tmpfiles
-Source99 : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3-beta.2/rabbitmq-server-generic-unix-latest-toolchain-3.8.3-beta.2.tar.xz.asc
+Source3  : https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.3-beta.2/rabbitmq-server-generic-unix-latest-toolchain-3.8.3-beta.2.tar.xz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : Apache-2.0 BSD-2-Clause BSD-3-Clause HPND MIT MPL-1.1
+License  : Apache-2.0 BSD-2-Clause BSD-3-Clause HPND MIT MPL-1.1 MPL-2.0
 Requires: rabbitmq-server-bin = %{version}-%{release}
 Requires: rabbitmq-server-config = %{version}-%{release}
 Requires: rabbitmq-server-license = %{version}-%{release}
@@ -81,51 +81,56 @@ services components for the rabbitmq-server package.
 
 %prep
 %setup -q -n rabbitmq_server-3.8.3-beta.2
+cd %{_builddir}/rabbitmq_server-3.8.3-beta.2
 %patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1578296460
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604604282
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 make
 
 
 %install
-export SOURCE_DATE_EPOCH=1578296460
+export SOURCE_DATE_EPOCH=1604604282
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rabbitmq-server
-cp LICENSE-APACHE2 %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-APACHE2
-cp LICENSE-APACHE2-ExplorerCanvas %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-APACHE2-ExplorerCanvas
-cp LICENSE-APACHE2-excanvas %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-APACHE2-excanvas
-cp LICENSE-APL2-Stomp-Websocket %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-APL2-Stomp-Websocket
-cp LICENSE-BSD-base64js %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-BSD-base64js
-cp LICENSE-BSD-recon %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-BSD-recon
-cp LICENSE-ISC-cowboy %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-ISC-cowboy
-cp LICENSE-MIT-EJS %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-EJS
-cp LICENSE-MIT-EJS10 %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-EJS10
-cp LICENSE-MIT-Erlware-Commons %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Erlware-Commons
-cp LICENSE-MIT-Flot %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Flot
-cp LICENSE-MIT-Mochi %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Mochi
-cp LICENSE-MIT-Sammy %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Sammy
-cp LICENSE-MIT-Sammy060 %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Sammy060
-cp LICENSE-MIT-jQuery %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-jQuery
-cp LICENSE-MPL %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MPL
-cp LICENSE-MPL-RabbitMQ %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-MPL-RabbitMQ
-cp LICENSE-erlcloud %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-erlcloud
-cp LICENSE-httpc_aws %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-httpc_aws
-cp LICENSE-rabbitmq_aws %{buildroot}/usr/share/package-licenses/rabbitmq-server/LICENSE-rabbitmq_aws
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-APACHE2 %{buildroot}/usr/share/package-licenses/rabbitmq-server/126723edd4ffead796884f730524deccdbdba7b0
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-APACHE2-ExplorerCanvas %{buildroot}/usr/share/package-licenses/rabbitmq-server/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-APACHE2-excanvas %{buildroot}/usr/share/package-licenses/rabbitmq-server/de33ead2bee64352544ce0aa9e410c0c44fdf7d9
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-APL2-Stomp-Websocket %{buildroot}/usr/share/package-licenses/rabbitmq-server/a118861172e3884edbc819521f390e11bdb5fb9f
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-BSD-base64js %{buildroot}/usr/share/package-licenses/rabbitmq-server/30567b6415ba032fd62a753813639c8555e7267e
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-BSD-recon %{buildroot}/usr/share/package-licenses/rabbitmq-server/9802eda8562143bc49d55873b49496c2de120c89
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-ISC-cowboy %{buildroot}/usr/share/package-licenses/rabbitmq-server/67b41fbf9be658f57723439684346c6b9917febb
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MIT-EJS %{buildroot}/usr/share/package-licenses/rabbitmq-server/88848a3dbcd10312917ad8ebd686a06cc924ef86
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MIT-EJS10 %{buildroot}/usr/share/package-licenses/rabbitmq-server/668887c1cb5b8e0ba6774448c42c8152119176df
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MIT-Erlware-Commons %{buildroot}/usr/share/package-licenses/rabbitmq-server/3d4f7347b7c13e3807bc84449451071f61995c58
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MIT-Flot %{buildroot}/usr/share/package-licenses/rabbitmq-server/59d7f8d2480093f4a8c1a1f4d481f142176a0007
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MIT-Mochi %{buildroot}/usr/share/package-licenses/rabbitmq-server/9142802977452fd68dcfcddcefb3f7eb73361390
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MIT-Sammy %{buildroot}/usr/share/package-licenses/rabbitmq-server/3d8812f47cf1bca841e7417a83a133e81a5f4190
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MIT-Sammy060 %{buildroot}/usr/share/package-licenses/rabbitmq-server/c865e79d84ee6f58d321b3b3c00fe0ed63a2a4e9
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MIT-jQuery %{buildroot}/usr/share/package-licenses/rabbitmq-server/11dfd9e898fabc7b2c2ed1b0f002ac5150874eba
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MIT-jQuery164 %{buildroot}/usr/share/package-licenses/rabbitmq-server/c9541868f62bcaafd76e3b74bf43515144ff36c8
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MPL %{buildroot}/usr/share/package-licenses/rabbitmq-server/af219e97db4dc8bdd40894a87eed199e724e4988
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MPL-RabbitMQ %{buildroot}/usr/share/package-licenses/rabbitmq-server/af219e97db4dc8bdd40894a87eed199e724e4988
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-MPL2 %{buildroot}/usr/share/package-licenses/rabbitmq-server/8fcc05c0dd9d9c76e948120c9520e4cbe85fb527
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-erlcloud %{buildroot}/usr/share/package-licenses/rabbitmq-server/982208a52a0121a01a21e2afca1497a9e38ce5eb
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-httpc_aws %{buildroot}/usr/share/package-licenses/rabbitmq-server/7792ca84400a4067387e584b16fa9c594a9e3dc6
+cp %{_builddir}/rabbitmq_server-3.8.3-beta.2/LICENSE-rabbitmq_aws %{buildroot}/usr/share/package-licenses/rabbitmq-server/7792ca84400a4067387e584b16fa9c594a9e3dc6
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/rabbitmq-server.service
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
+## Remove excluded files
+rm -f %{buildroot}/usr/bin/cuttlefish
 
 %files
 %defattr(-,root,root,-)
@@ -374,7 +379,6 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
 
 %files bin
 %defattr(-,root,root,-)
-%exclude /usr/bin/cuttlefish
 /usr/bin/rabbitmq-defaults
 /usr/bin/rabbitmq-diagnostics
 /usr/bin/rabbitmq-env
@@ -392,26 +396,26 @@ install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/tmpfiles.d/rabbitmq-server.conf
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/rabbitmq-server/LICENSE-APACHE2
-/usr/share/package-licenses/rabbitmq-server/LICENSE-APACHE2-ExplorerCanvas
-/usr/share/package-licenses/rabbitmq-server/LICENSE-APACHE2-excanvas
-/usr/share/package-licenses/rabbitmq-server/LICENSE-APL2-Stomp-Websocket
-/usr/share/package-licenses/rabbitmq-server/LICENSE-BSD-base64js
-/usr/share/package-licenses/rabbitmq-server/LICENSE-BSD-recon
-/usr/share/package-licenses/rabbitmq-server/LICENSE-ISC-cowboy
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-EJS
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-EJS10
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Erlware-Commons
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Flot
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Mochi
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Sammy
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-Sammy060
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MIT-jQuery
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MPL
-/usr/share/package-licenses/rabbitmq-server/LICENSE-MPL-RabbitMQ
-/usr/share/package-licenses/rabbitmq-server/LICENSE-erlcloud
-/usr/share/package-licenses/rabbitmq-server/LICENSE-httpc_aws
-/usr/share/package-licenses/rabbitmq-server/LICENSE-rabbitmq_aws
+/usr/share/package-licenses/rabbitmq-server/11dfd9e898fabc7b2c2ed1b0f002ac5150874eba
+/usr/share/package-licenses/rabbitmq-server/126723edd4ffead796884f730524deccdbdba7b0
+/usr/share/package-licenses/rabbitmq-server/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+/usr/share/package-licenses/rabbitmq-server/30567b6415ba032fd62a753813639c8555e7267e
+/usr/share/package-licenses/rabbitmq-server/3d4f7347b7c13e3807bc84449451071f61995c58
+/usr/share/package-licenses/rabbitmq-server/3d8812f47cf1bca841e7417a83a133e81a5f4190
+/usr/share/package-licenses/rabbitmq-server/59d7f8d2480093f4a8c1a1f4d481f142176a0007
+/usr/share/package-licenses/rabbitmq-server/668887c1cb5b8e0ba6774448c42c8152119176df
+/usr/share/package-licenses/rabbitmq-server/67b41fbf9be658f57723439684346c6b9917febb
+/usr/share/package-licenses/rabbitmq-server/7792ca84400a4067387e584b16fa9c594a9e3dc6
+/usr/share/package-licenses/rabbitmq-server/88848a3dbcd10312917ad8ebd686a06cc924ef86
+/usr/share/package-licenses/rabbitmq-server/8fcc05c0dd9d9c76e948120c9520e4cbe85fb527
+/usr/share/package-licenses/rabbitmq-server/9142802977452fd68dcfcddcefb3f7eb73361390
+/usr/share/package-licenses/rabbitmq-server/9802eda8562143bc49d55873b49496c2de120c89
+/usr/share/package-licenses/rabbitmq-server/982208a52a0121a01a21e2afca1497a9e38ce5eb
+/usr/share/package-licenses/rabbitmq-server/a118861172e3884edbc819521f390e11bdb5fb9f
+/usr/share/package-licenses/rabbitmq-server/af219e97db4dc8bdd40894a87eed199e724e4988
+/usr/share/package-licenses/rabbitmq-server/c865e79d84ee6f58d321b3b3c00fe0ed63a2a4e9
+/usr/share/package-licenses/rabbitmq-server/c9541868f62bcaafd76e3b74bf43515144ff36c8
+/usr/share/package-licenses/rabbitmq-server/de33ead2bee64352544ce0aa9e410c0c44fdf7d9
 
 %files man
 %defattr(0644,root,root,0755)
